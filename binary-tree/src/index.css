@@ -1,0 +1,33 @@
+/* Global box-sizing reset */
+* {
+  box-sizing: border-box;
+}
+
+/* Root variables for dark mode */
+:root {
+  --color-bg-dark: #242424;
+  --color-text-dark: rgba(255, 255, 255, 0.87);
+  --color-bg-light: #ffffff;
+  --color-text-light: #242424;
+  --primary-font: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: var(--primary-font);
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: var(--color-text-dark);
+  background-color: var(--color-bg-dark);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Root variables for light mode */
+@media (prefers-color-scheme: light) {
+  :root {
+    color: var(--color-text-light);
+    background-color: var(--color-bg-light);
+  }
+}
+
+
