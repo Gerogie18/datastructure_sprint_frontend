@@ -1,0 +1,264 @@
+.binary-tree-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+}
+
+.binary-tree-container {
+  display: flex;
+  justify-content: center;
+  padding: var(--spacing-lg);
+  font-family: var(--font-primary);
+  overflow-x: auto;
+  text-align: center;
+  background: var(--color-bg-light);
+  border: var(--border-width) solid var(--color-border-light);
+  border-radius: var(--border-radius-lg);
+  min-width: 600px;
+  max-width: 90vw;
+  max-height: 80vh;
+  overflow: auto;
+  box-shadow: var(--shadow-lg);
+}
+
+/* General container for the entire tree visualization */
+.binary-tree-container {
+  display: flex;
+  justify-content: center;
+  padding: var(--spacing-lg);
+  font-family: var(--font-primary);
+  overflow-x: auto;
+  text-align: center;
+}
+
+/* Styles for the container of a node and its children */
+.node-container {
+  display: inline-flex; /* Use inline-flex to allow nodes to sit side-by-side */
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding: var(--spacing-lg) 0; /* Vertical padding, horizontal is handled by children */
+}
+
+.tree-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border-bottom: var(--border-width) solid var(--color-border-dark);
+  background: var(--color-bg-dark);
+  color: var(--color-text-dark);
+  border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
+}
+
+.tree-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--color-text-dark);
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color var(--transition-fast);
+}
+
+.close-btn:hover {
+  background: var(--color-accent-bg-dark);
+  color: var(--color-accent-dark);
+}
+
+.tree-info {
+  padding: var(--spacing-lg) var(--spacing-xl);
+  background: var(--color-bg-light);
+  color: var(--color-text-light);
+  border-bottom: var(--border-width) solid var(--color-border-light);
+}
+
+.tree-info p {
+  margin: var(--spacing-sm) 0;
+}
+
+.tree-visualization {
+  padding: var(--spacing-xl);
+  background: var(--color-bg-light);
+  color: var(--color-text-light);
+  min-height: 300px;
+  overflow: auto;
+}
+
+.tree-root {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.tree-node-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 var(--spacing-md);
+}
+
+.tree-node {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-bg-secondary-light);
+  font-weight: 600;
+  position: relative;
+  z-index: 2;
+  /* Default shape: rounded square */
+  border-radius: var(--border-radius-md);
+}
+
+/* Default color for a regular node */
+.binary-tree-container.unbalanced .tree-node {
+    background-color: var(--color-error-light); /* Red for unbalanced */
+}
+
+/* Color and shape for nodes in a balanced tree */
+.binary-tree-container.balanced .tree-node {
+    background-color: var(--color-accent-light); /* A shade of blue for balanced */
+    border-radius: 50%; /* Circular shape */
+}
+
+/* Specific color for a leaf node, overrides other colors */
+.tree-node.leaf {
+  background-color: var(--color-success-light); /* Green for leaf nodes */
+}
+
+.node-value {
+  cursor: default;
+}
+
+/* Container for the children of a node */
+.children {
+  display: flex;
+  position: relative;
+  padding-top: var(--spacing-lg);
+}
+
+/* A branch of the tree containing a subtree */
+.node-branch {
+  padding: 0 var(--spacing-sm); /* Horizontal spacing between children */
+  position: relative;
+}
+
+/* Draw line from parent to child */
+.node-branch::before, .node-branch::after {
+  content: '';
+  position: absolute;
+  background-color: var(--color-border-light);
+}
+
+.node-branch::before { /* Vertical line */
+  top: calc(-1 * var(--spacing-lg));
+  left: 50%;
+  width: var(--border-width);
+  height: var(--spacing-lg);
+  transform: translateX(-50%);
+}
+
+.node-branch:not(:only-child)::after { /* Horizontal line */
+  top: calc(-1 * var(--spacing-lg));
+  height: var(--border-width);
+}
+
+.node-branch:first-child:not(:only-child)::after {
+  left: 50%;
+  right: 0;
+}
+
+.node-branch:last-child:not(:only-child)::after {
+  right: 50%;
+  left: 0;
+}
+
+.tree-error {
+  color: var(--color-error-light);
+  font-size: 1.2rem;
+  padding: 20px;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  .binary-tree-container {
+    background: var(--color-bg-dark);
+    border-color: var(--color-border-dark);
+    box-shadow: var(--shadow-dark-lg);
+  }
+  
+  .tree-header {
+    background: var(--color-bg-secondary-light);
+    color: var(--color-text-primary-light);
+    border-bottom-color: var(--color-border-light);
+  }
+  
+  .tree-info,
+  .tree-visualization {
+    background: var(--color-bg-dark);
+    color: var(--color-text-dark);
+  }
+  
+  .tree-info {
+    border-bottom-color: var(--color-border-dark);
+  }
+  
+  .close-btn {
+    color: var(--color-text-primary-light);
+  }
+  
+  .close-btn:hover {
+    background: var(--color-accent-bg-light);
+    color: var(--color-accent-light);
+  }
+  
+  .tree-node-container::before,
+  .tree-children::before,
+  .left-child::before,
+  .right-child::before {
+    background: var(--color-border-dark);
+  }
+  
+  .node-value {
+    color: var(--color-bg-secondary-dark);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .binary-tree-container {
+    min-width: 300px;
+    margin: var(--spacing-lg);
+  }
+  
+  .tree-children {
+    gap: var(--spacing-lg);
+  }
+  
+  .node-value {
+    width: 35px;
+    height: 35px;
+    font-size: var(--spacing-sm);
+  }
+}

@@ -1,0 +1,49 @@
+/* Footer Bar - Rocky Horror Theatrical Sticky Footer */
+.footer-bar {
+  padding: var(--spacing-md) var(--spacing-lg);
+  text-align: center;
+  background-color: var(--color-bg-secondary-light);
+  border-top: var(--border-width) solid var(--color-border-light);
+  color: var(--color-text-muted-light);
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: var(--shadow-top-sm);
+  transition: all var(--transition-base);
+  margin-top: auto;
+  flex-shrink: 0;
+  width: 100%;
+  position: relative;
+}
+
+.footer-bar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    var(--color-accent-light), 
+    transparent
+  );
+  opacity: 0.6;
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  .footer-bar {
+    background-color: var(--color-bg-secondary-dark);
+    border-top-color: var(--color-border-dark);
+    color: var(--color-text-muted-dark);
+    box-shadow: var(--shadow-dark-top-sm);
+  }
+  
+  .footer-bar::before {
+    background: linear-gradient(90deg, 
+      transparent, 
+      var(--color-accent-dark), 
+      transparent
+    );
+  }
+}

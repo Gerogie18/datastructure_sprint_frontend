@@ -1,0 +1,140 @@
+/* Global box-sizing reset */
+* {
+  box-sizing: border-box;
+}
+
+/* Root variables for dark mode */
+:root {
+  /* Font & Text */
+  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-monospace: 'Fira Code', 'Courier New', monospace;
+  --font-size-base: 16px;
+  --line-height-base: 1.6;
+
+  /* Spacing & Sizing */
+  --spacing-unit: 8px;
+  --spacing-xs: calc(var(--spacing-unit) * 0.5);  /* 4px */
+  --spacing-sm: var(--spacing-unit);             /* 8px */
+  --spacing-md: calc(var(--spacing-unit) * 2);   /* 16px */
+  --spacing-lg: calc(var(--spacing-unit) * 3);   /* 24px */
+  --spacing-xl: calc(var(--spacing-unit) * 4);   /* 32px */
+
+  /* Borders & Shadows - Rocky Horror Theatrical Effects */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-width: 1px;
+  --shadow-sm: 0 2px 8px rgba(255, 20, 147, 0.15);      /* Pink glow shadow */
+  --shadow-md: 0 4px 16px rgba(255, 20, 147, 0.2);      /* Medium pink glow */
+  --shadow-lg: 0 8px 32px rgba(255, 20, 147, 0.25);     /* Large pink glow */
+  --shadow-top-sm: 0 -2px 8px rgba(255, 20, 147, 0.15); /* Upward pink glow */
+  --shadow-dark-md: 0 4px 16px rgba(0, 0, 0, 0.8);      /* Deep storm shadow */
+  --shadow-dark-lg: 0 8px 32px rgba(0, 0, 0, 0.9);      /* Dark lightning shadow */
+  --shadow-dark-top-sm: 0 -2px 8px rgba(0, 0, 0, 0.6);  /* Upward storm shadow */
+
+  /* Transitions */
+  --transition-fast: 150ms ease-in-out;
+  --transition-base: 300ms ease-in-out;
+
+  /* Light Theme Colors - Rocky Horror Lab Scene */
+  --color-bg-light: #f0f8ff;                    /* Electric blue-white lab lighting */
+  --color-bg-secondary-light: #ffffff;          /* Stark white lab surfaces */
+  --color-text-primary-light: #2d1b69;          /* Deep purple shadows */
+  --color-text-light: #2d1b69;                  /* Deep purple text */
+  --color-text-muted-light: #6a4c93;            /* Medium purple for secondary text */
+  --color-border-light: #c8b2db;                /* Soft purple borders */
+  --color-accent-light: #ff1493;                /* Hot pink electricity */
+  --color-accent-hover-light: #dc143c;          /* Crimson red spark */
+  --color-accent-bg-light: rgba(255, 20, 147, 0.1); /* Soft pink glow */
+  --color-success-light: #00ff7f;               /* Electric green success */
+  --color-error-light: #ff6347;                 /* Electric red warning */
+  --color-error-bg-light: #ffe4e1;              /* Soft red background */
+  --color-error-border-light: #ffb6c1;          /* Light red border */
+  --color-warning-light: #ffd700;               /* Electric yellow warning */
+  --color-row-even-light: rgba(138, 43, 226, 0.05); /* Faint purple tint */
+
+  /* Dark Theme Colors - Rocky Horror Rain Scene */
+  --color-bg-dark: #0d0d0d;                     /* Deep stormy night black */
+  --color-bg-secondary-dark: #1a1a1a;           /* Dark castle shadows */
+  --color-text-primary-dark: #f0f0f0;           /* Lightning white text */
+  --color-text-dark: #f0f0f0;                   /* Lightning white */
+  --color-text-muted-dark: #b0b0b0;             /* Misty gray text */
+  --color-border-dark: #333333;                 /* Dark storm cloud borders */
+  --color-accent-dark: #ff1493;                 /* Hot pink lightning */
+  --color-accent-hover-dark: #ff69b4;           /* Bright pink flash */
+  --color-accent-bg-dark: rgba(255, 20, 147, 0.15); /* Pink lightning glow */
+  --color-success-dark: #00ff7f;                /* Electric green flash */
+  --color-error-dark: #ff4500;                  /* Orange red danger */
+  --color-error-bg-dark: rgba(255, 69, 0, 0.1); /* Dark orange glow */
+  --color-error-border-dark: rgba(255, 69, 0, 0.3); /* Orange border */
+  --color-warning-dark: #ffd700;                /* Golden lightning warning */
+  --color-row-even-dark: rgba(255, 255, 255, 0.03); /* Faint lightning traces */
+}
+
+/* Apply base styles */
+body {
+  margin: 0;
+  font-family: var(--font-primary);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+/* Light mode by default */
+body {
+  background-color: var(--color-bg-light);
+  color: var(--color-text-light);
+}
+
+/* Dark mode for users who prefer it */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-dark);
+  }
+}
+
+/* Global element styles */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 var(--spacing-md);
+  font-weight: 600;
+}
+
+p {
+  margin: 0 0 var(--spacing-md);
+}
+
+a {
+  color: var(--color-accent-light);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+@media (prefers-color-scheme: dark) {
+  a {
+    color: var(--color-accent-dark);
+  }
+}
+
+a:hover {
+  text-decoration: underline;
+  color: var(--color-accent-hover-light);
+}
+
+@media (prefers-color-scheme: dark) {
+  a:hover {
+    color: var(--color-accent-hover-dark);
+  }
+}
+
+/* Utility classes */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+
