@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import UserSelectHook from './UserSelectHook.jsx';
 
-const UserSelectionDiv = () => {
+const UserSelectionDiv = ({ onUserChange }) => {
   const userSelectProps = UserSelectHook();
+
+  // Notify parent when current user changes
+  useEffect(() => {
+    if (onUserChange) {
+      onUserChange(userSelectProps.currentUser);
+    }
+  }, [userSelectProps.currentUser, onUserChange]);
 
   return (
     <div className="user-select-container">
