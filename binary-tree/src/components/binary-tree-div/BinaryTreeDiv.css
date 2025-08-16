@@ -1,0 +1,231 @@
+.binary-tree-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+}
+
+.binary-tree-container {
+  background: var(--color-bg-light);
+  border: 2px solid var(--color-text-light);
+  border-radius: 12px;
+  min-width: 600px;
+  max-width: 90vw;
+  max-height: 80vh;
+  overflow: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  font-family: var(--primary-font);
+}
+
+.tree-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--color-text-light);
+  background: var(--color-bg-dark);
+  color: var(--color-text-dark);
+  border-radius: 10px 10px 0 0;
+}
+
+.tree-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--color-text-dark);
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.tree-info {
+  padding: 1rem 1.5rem;
+  background: var(--color-bg-light);
+  color: var(--color-text-light);
+  border-bottom: 1px solid var(--color-text-light);
+}
+
+.tree-info p {
+  margin: 0.5rem 0;
+}
+
+.tree-visualization {
+  padding: 2rem;
+  background: var(--color-bg-light);
+  color: var(--color-text-light);
+  min-height: 300px;
+  overflow: auto;
+}
+
+.tree-root {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.tree-node-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.tree-node {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.node-value {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-accent, #4CAF50);
+  color: var(--color-bg-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+  border: 2px solid var(--color-accent-dark, #45a049);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.tree-children {
+  display: flex;
+  gap: 40px;
+  position: relative;
+}
+
+.left-child,
+.right-child {
+  position: relative;
+}
+
+/* Connection lines */
+.tree-node-container::before {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 20px;
+  background: var(--color-text-light);
+}
+
+.tree-children::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 40px);
+  height: 2px;
+  background: var(--color-text-light);
+}
+
+.left-child::before,
+.right-child::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  width: 2px;
+  height: 20px;
+  background: var(--color-text-light);
+}
+
+.left-child::before {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.right-child::before {
+  right: 50%;
+  transform: translateX(50%);
+}
+
+.empty-tree,
+.no-tree {
+  text-align: center;
+  color: var(--color-text-light);
+  font-style: italic;
+  padding: 2rem;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  .binary-tree-container {
+    background: var(--color-bg-dark);
+    border-color: var(--color-text-dark);
+  }
+  
+  .tree-header {
+    background: var(--color-bg-light);
+    color: var(--color-text-light);
+  }
+  
+  .tree-info,
+  .tree-visualization {
+    background: var(--color-bg-dark);
+    color: var(--color-text-dark);
+  }
+  
+  .close-btn {
+    color: var(--color-text-light);
+  }
+  
+  .close-btn:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
+  
+  .tree-node-container::before,
+  .tree-children::before,
+  .left-child::before,
+  .right-child::before {
+    background: var(--color-text-dark);
+  }
+  
+  .node-value {
+    color: var(--color-bg-dark);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .binary-tree-container {
+    min-width: 300px;
+    margin: 1rem;
+  }
+  
+  .tree-children {
+    gap: 20px;
+  }
+  
+  .node-value {
+    width: 35px;
+    height: 35px;
+    font-size: 12px;
+  }
+}
