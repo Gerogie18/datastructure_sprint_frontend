@@ -1,0 +1,23 @@
+.dropdown-select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--color-text-light);
+  border-radius: 4px;
+  background: var(--color-bg-light);
+  color: var(--color-text-light);
+  font-family: var(--primary-font);
+  font-size: 1rem;
+}
+
+.dropdown-select:focus {
+  outline: none;
+  border-color: var(--color-text-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+  .dropdown-select {
+    background: var(--color-bg-dark);
+    color: var(--color-text-dark);
+    border-color: var(--color-text-dark);
+  }
+}
