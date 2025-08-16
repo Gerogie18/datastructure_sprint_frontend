@@ -2,6 +2,7 @@ import React from 'react';
 import BinaryTreeInput from '../../components/binary-tree-input/BinaryTreeInput.jsx';
 import BinaryTreeDiv from '../../components/binary-tree-div/BinaryTreeDiv.jsx';
 import useTreeHistory from './TreeHistoryHook';
+import './TreeHistory.css';
 
 const TreeHistory = () => {
   const {

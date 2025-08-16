@@ -1,11 +1,9 @@
 .binary-tree-input-container {
-  max-width: 500px;
-  margin: 2rem 0;
-  padding: 1.5rem;
-  border: 1px solid var(--color-text-light);
-  border-radius: 8px;
-  background: var(--color-bg-light);
-  font-family: var(--primary-font);
+  background-color: var(--color-bg-secondary-light);
+  border: var(--border-width) solid var(--color-border-light);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+  margin: var(--spacing-lg) 0;
 }
 
 .numbers-input-section {
@@ -22,109 +20,76 @@
 .number-input-row {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
 }
 
 .number-input-row input {
-  flex: 1;
-  padding: 0.5rem;
-  border: 1px solid var(--color-text-light);
-  border-radius: 4px;
-  font-size: 1rem;
-  background: var(--color-bg-light);
+  flex-grow: 1;
+  padding: var(--spacing-sm);
+  border: var(--border-width) solid var(--color-border-light);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--color-bg-light);
   color: var(--color-text-light);
+}
+
+.remove-btn, .add-number-btn, .create-tree-btn {
+  border: none;
+  border-radius: var(--border-radius-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), opacity var(--transition-fast);
 }
 
 .remove-btn {
-  background: #ff4444;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-  font-size: 1.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background-color: var(--color-error-light);
+  color: var(--color-bg-secondary-light);
 }
-
 .remove-btn:hover {
-  background: #cc0000;
-}
-
-.add-number-btn {
-  background: var(--color-text-light);
-  color: var(--color-bg-light);
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
-}
-
-.add-number-btn:hover {
   opacity: 0.8;
 }
 
+.add-number-btn {
+  background-color: var(--color-text-muted-light);
+  color: var(--color-bg-secondary-light);
+}
+
 .create-tree-btn {
-  background: #4CAF50;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: bold;
+  background-color: var(--color-success-light);
+  color: var(--color-bg-secondary-light);
+  font-weight: 600;
 }
-
-.create-tree-btn:hover:not(:disabled) {
-  background: #45a049;
-}
-
 .create-tree-btn:disabled {
-  background: #cccccc;
+  background-color: var(--color-text-muted-light);
   cursor: not-allowed;
 }
 
-.error-message {
-  background: #ffebee;
-  color: #c62828;
-  padding: 0.75rem;
-  border-radius: 4px;
-  margin-bottom: 1rem;
+.error-message, .success-message, .user-warning, .keyboard-hint {
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  margin-bottom: var(--spacing-md);
 }
 
-.success-message {
-  background: #e8f5e8;
-  color: #2e7d32;
-  padding: 0.75rem;
-  border-radius: 4px;
-  margin-bottom: 1rem;
-}
+.error-message { background-color: var(--color-error-light); color: #fff; }
+.success-message { background-color: var(--color-success-light); color: #fff; }
+.user-warning { color: var(--color-warning-light); }
+.keyboard-hint { color: var(--color-text-muted-light); font-size: 0.8rem; }
 
-.user-warning {
-  color: #ff6600;
-  font-size: 0.9rem;
-  margin-top: 0.5rem;
-}
-
-.keyboard-hint {
-  color: var(--color-text-light);
-  font-size: 0.8rem;
-  margin-top: 0.5rem;
-  opacity: 0.7;
-}
-
+/* Dark Mode */
 @media (prefers-color-scheme: dark) {
   .binary-tree-input-container {
-    background: var(--color-bg-dark);
-    border-color: var(--color-text-dark);
+    background-color: var(--color-bg-secondary-dark);
+    border-color: var(--color-border-dark);
   }
-  
   .number-input-row input {
-    background: var(--color-bg-dark);
+    background-color: var(--color-bg-dark);
     color: var(--color-text-dark);
-    border-color: var(--color-text-dark);
+    border-color: var(--color-border-dark);
   }
+  .remove-btn { background-color: var(--color-error-dark); }
+  .add-number-btn { background-color: var(--color-text-muted-dark); }
+  .create-tree-btn { background-color: var(--color-success-dark); }
+  .create-tree-btn:disabled { background-color: var(--color-text-muted-dark); }
+  .user-warning { color: var(--color-warning-dark); }
+  .keyboard-hint { color: var(--color-text-muted-dark); }
 }

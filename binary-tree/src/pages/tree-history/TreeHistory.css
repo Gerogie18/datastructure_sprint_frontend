@@ -1,11 +1,226 @@
-import React from 'react';
+/* Tree History Page Styles */
+.tree-history-page {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+}
 
-const TreeHistory = () => {
-  return (
-    <>
-      <h1>Tree History</h1>
-    </>
-  );
-};
+.tree-history-page h1 {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  color: var(--color-text-primary-light);
+  font-size: 2.5rem;
+  font-weight: 600;
+}
 
-export default TreeHistory;
+/* Loading and Error States */
+.tree-history-page > div:first-of-type {
+  text-align: center;
+  padding: var(--spacing-lg);
+  font-size: 1.1rem;
+  color: var(--color-text-muted-light);
+}
+
+.error-message {
+  background-color: var(--color-error-bg-light);
+  color: var(--color-error-light);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  border: var(--border-width) solid var(--color-error-border-light);
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+}
+
+/* Table Styles */
+.tree-history-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: var(--spacing-xl);
+  background-color: var(--color-bg-secondary-light);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: box-shadow var(--transition-base);
+}
+
+.tree-history-table:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.tree-history-table th,
+.tree-history-table td {
+  padding: var(--spacing-lg) var(--spacing-md);
+  text-align: left;
+  border-bottom: var(--border-width) solid var(--color-border-light);
+}
+
+.tree-history-table thead th {
+  background-color: var(--color-bg-light);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--color-text-primary-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.tree-history-table tbody tr {
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.tree-history-table tbody tr:hover {
+  background-color: var(--color-accent-light);
+  color: var(--color-bg-secondary-light);
+  transform: translateY(-1px);
+}
+
+.tree-history-table tbody tr:nth-child(even) {
+  background-color: var(--color-row-even-light);
+}
+
+.tree-history-table tbody tr:nth-child(even):hover {
+  background-color: var(--color-accent-light);
+  color: var(--color-bg-secondary-light);
+}
+
+.tree-history-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.tree-history-table td {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Tree Visualization Container */
+.tree-visualization-container {
+  margin-top: var(--spacing-xl);
+  padding: var(--spacing-xl);
+  background-color: var(--color-bg-secondary-light);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: var(--border-width) solid var(--color-border-light);
+}
+
+.tree-visualization-container h3 {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-text-primary-light);
+  font-size: 1.5rem;
+  font-weight: 600;
+  position: relative;
+}
+
+.tree-visualization-container h3::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background-color: var(--color-accent-light);
+  border-radius: var(--border-radius-sm);
+}
+
+/* Empty State */
+.tree-history-table tbody:empty::after {
+  content: 'No trees found';
+  display: block;
+  text-align: center;
+  padding: var(--spacing-xl);
+  color: var(--color-text-muted-light);
+  font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .tree-history-page {
+    padding: var(--spacing-md);
+  }
+  
+  .tree-history-page h1 {
+    font-size: 2rem;
+  }
+  
+  .tree-history-table th,
+  .tree-history-table td {
+    padding: var(--spacing-md) var(--spacing-sm);
+    font-size: 0.9rem;
+  }
+  
+  .tree-visualization-container {
+    padding: var(--spacing-lg);
+  }
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  .tree-history-page h1 {
+    color: var(--color-text-primary-dark);
+  }
+  
+  .tree-history-page > div:first-of-type {
+    color: var(--color-text-muted-dark);
+  }
+  
+  .error-message {
+    background-color: var(--color-error-bg-dark);
+    color: var(--color-error-border-light);
+    border-color: var(--color-error-border-dark);
+  }
+  
+  .tree-history-table {
+    background-color: var(--color-bg-secondary-dark);
+    box-shadow: var(--shadow-dark-md);
+  }
+  
+  .tree-history-table:hover {
+    box-shadow: var(--shadow-dark-lg);
+  }
+  
+  .tree-history-table th,
+  .tree-history-table td {
+    border-bottom-color: var(--color-border-dark);
+  }
+  
+  .tree-history-table thead th {
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-primary-dark);
+  }
+  
+  .tree-history-table tbody tr:nth-child(even) {
+    background-color: var(--color-row-even-dark);
+  }
+  
+  .tree-history-table tbody tr:hover {
+    background-color: var(--color-accent-dark);
+    color: var(--color-bg-secondary-dark);
+  }
+  
+  .tree-history-table tbody tr:nth-child(even):hover {
+    background-color: var(--color-accent-dark);
+    color: var(--color-bg-secondary-dark);
+  }
+  
+  .tree-visualization-container {
+    background-color: var(--color-bg-secondary-dark);
+    border-color: var(--color-border-dark);
+  }
+  
+  .tree-visualization-container h3 {
+    color: var(--color-text-primary-dark);
+  }
+  
+  .tree-visualization-container h3::after {
+    background-color: var(--color-accent-dark);
+  }
+  
+  .tree-history-table tbody:empty::after {
+    color: var(--color-text-muted-dark);
+  }
+}

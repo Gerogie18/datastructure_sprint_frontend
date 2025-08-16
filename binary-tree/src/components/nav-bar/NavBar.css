@@ -1,36 +1,65 @@
-.navbar {
+/* Navigation Bar - Simple & Minimal */
+.nav-bar {
   display: flex;
-  gap: 2rem;
-  padding: 1rem 0;
-  font-family: var(--primary-font);
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md) var(--spacing-lg);
+  background-color: var(--color-bg-secondary-light);
+  border-bottom: var(--border-width) solid var(--color-border-light);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
-.nav-link {
-  color: var(--color-text-dark);
+.nav-logo {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text-primary-light);
+  margin: 0;
+}
+
+.nav-links {
+  display: flex;
+  gap: var(--spacing-lg);
+  align-items: center;
+}
+
+.nav-links a {
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--color-text-muted-light);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--color-accent-light);
+  background-color: var(--color-accent-bg-light);
   text-decoration: none;
-  font-size: 1.1rem;
-  position: relative;
-  transition: color 0.2s;
 }
 
-.nav-link:hover,
-.nav-link.active {
-  color: var(--color-text-light);
-}
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  .nav-bar {
+    background-color: var(--color-bg-secondary-dark);
+    border-bottom-color: var(--color-border-dark);
+  }
 
-.nav-link::after {
-  content: '';
-  display: block;
-  width: 0;
-  height: 2px;
-  background: var(--color-text-light);
-  transition: width 0.2s;
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-}
+  .nav-logo {
+    color: var(--color-text-primary-dark);
+  }
 
-.nav-link:hover::after,
-.nav-link.active::after {
-  width: 100%;
+  .nav-links a {
+    color: var(--color-text-muted-dark);
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: var(--color-accent-dark);
+    background-color: var(--color-accent-bg-dark);
+  }
 }
