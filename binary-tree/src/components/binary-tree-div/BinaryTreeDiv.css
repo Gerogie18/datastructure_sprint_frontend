@@ -13,6 +13,12 @@
 }
 
 .binary-tree-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  font-family: var(--primary-font);
+  overflow-x: auto;
+  text-align: center;
   background: var(--color-bg-light);
   border: 2px solid var(--color-text-light);
   border-radius: 12px;
@@ -21,7 +27,25 @@
   max-height: 80vh;
   overflow: auto;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* General container for the entire tree visualization */
+.binary-tree-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
   font-family: var(--primary-font);
+  overflow-x: auto;
+  text-align: center;
+}
+
+/* Styles for the container of a node and its children */
+.node-container {
+  display: inline-flex; /* Use inline-flex to allow nodes to sit side-by-side */
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding: 20px 0; /* Vertical padding, horizontal is handled by children */
 }
 
 .tree-header {
@@ -93,85 +117,101 @@
 }
 
 .tree-node {
-  margin-bottom: 20px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
   position: relative;
+  z-index: 2;
+  /* Default shape: rounded square */
+  border-radius: 8px;
+}
+
+/* Default color for a regular node */
+.binary-tree-container.unbalanced .tree-node {
+    background-color: var(--color-error); /* Red for unbalanced */
+}
+
+/* Color and shape for nodes in a balanced tree */
+.binary-tree-container.balanced .tree-node {
+    background-color: var(--color-accent); /* A shade of blue for balanced */
+    border-radius: 50%; /* Circular shape */
+}
+
+/* Specific color for a leaf node, overrides other colors */
+.tree-node.leaf {
+  background-color: var(--color-success); /* Green for leaf nodes */
 }
 
 .node-value {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--color-accent, #4CAF50);
-  color: var(--color-bg-light);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 14px;
-  border: 2px solid var(--color-accent-dark, #45a049);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  cursor: default;
 }
 
-.tree-children {
+/* Container for the children of a node */
+.children {
   display: flex;
-  gap: 40px;
+  position: relative;
+  padding-top: 20px;
+}
+
+/* A branch of the tree containing a subtree */
+.node-branch {
+  padding: 0 10px; /* Horizontal spacing between children */
   position: relative;
 }
 
-.left-child,
-.right-child {
-  position: relative;
-}
-
-/* Connection lines */
-.tree-node-container::before {
-  content: '';
-  position: absolute;
-  top: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2px;
-  height: 20px;
-  background: var(--color-text-light);
-}
-
-.tree-children::before {
+/* Draw line from parent to child */
+.node-branch::before {
   content: '';
   position: absolute;
   top: -20px;
   left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 40px);
+  border-left: 2px solid #ccc;
+  width: 0;
+  height: 20px;
+  transform: translateX(-1px);
+}
+
+/* Draw horizontal connecting line above children */
+.children::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
   height: 2px;
-  background: var(--color-text-light);
+  background-color: #ccc;
+  /* The width is calculated based on the children's positions */
 }
 
-.left-child::before,
-.right-child::before {
-  content: '';
-  position: absolute;
-  top: -20px;
-  width: 2px;
-  height: 20px;
-  background: var(--color-text-light);
+/* Horizontal line adjustments for two children */
+.node-branch:not(:only-child):first-child::after {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    right: -10px; /* Extend to the gap */
+    height: 2px;
+    background-color: #ccc;
 }
 
-.left-child::before {
-  left: 50%;
-  transform: translateX(-50%);
+.node-branch:not(:only-child):last-child::after {
+    content: '';
+    position: absolute;
+    top: -20px;
+    right: 50%;
+    left: -10px; /* Extend to the gap */
+    height: 2px;
+    background-color: #ccc;
 }
 
-.right-child::before {
-  right: 50%;
-  transform: translateX(50%);
-}
-
-.empty-tree,
-.no-tree {
-  text-align: center;
-  color: var(--color-text-light);
-  font-style: italic;
-  padding: 2rem;
+.tree-error {
+    color: var(--color-error);
+    font-size: 1.2rem;
+    padding: 20px;
 }
 
 /* Dark mode */

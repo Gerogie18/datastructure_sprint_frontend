@@ -1,50 +1,102 @@
 import React from 'react';
-import BinaryTreeDivHook from './BinaryTreeDivHook.jsx';
+import PropTypes from 'prop-types';
 import './BinaryTreeDiv.css';
 
-const BinaryTreeDiv = ({ treeData, onClose, isVisible }) => {
-  const { renderTree, parseTreeJson } = BinaryTreeDivHook();
+// Helper function to calculate the height of a node
+const getHeight = (node) => {
+  if (!node) {
+    return 0;
+  }
+  return 1 + Math.max(getHeight(node.left), getHeight(node.right));
+};
 
-  if (!isVisible || !treeData) return null;
+// Helper function to check if the tree is balanced
+const isBalanced = (node) => {
+  if (!node) {
+    return true;
+  }
+  const leftHeight = getHeight(node.left);
+  const rightHeight = getHeight(node.right);
 
-  // Parse the tree structure from JSON if needed
-  const treeStructure = typeof treeData.jsonTree === 'string' 
-    ? parseTreeJson(treeData.jsonTree) 
-    : treeData.jsonTree;
+  if (
+    Math.abs(leftHeight - rightHeight) <= 1 &&
+    isBalanced(node.left) &&
+    isBalanced(node.right)
+  ) {
+    return true;
+  }
+  return false;
+};
+
+const TreeNode = ({ node }) => {
+  if (!node) {
+    return null;
+  }
+
+  const isLeaf = !node.left && !node.right;
+  const nodeClassName = `tree-node ${isLeaf ? 'leaf' : ''}`;
 
   return (
-    <div className="binary-tree-overlay">
-      <div className="binary-tree-container">
-        {/* Header with close button */}
-        <div className="tree-header">
-          <h3>Binary Search Tree</h3>
-          <button className="close-btn" onClick={onClose}>
-            ×
-          </button>
-        </div>
-
-        {/* Tree Info */}
-        <div className="tree-info">
-          <p><strong>Input Numbers:</strong> {treeData.inputNumbers}</p>
-          {treeData.user && (
-            <p><strong>Created by:</strong> {treeData.user.name}</p>
-          )}
-          {treeData.id && (
-            <p><strong>Tree ID:</strong> {treeData.id}</p>
-          )}
-        </div>
-
-        {/* Tree Visualization */}
-        <div className="tree-visualization">
-          {treeStructure ? (
-            renderTree(treeStructure)
-          ) : (
-            <p className="no-tree">No tree data available</p>
-          )}
-        </div>
+    <div className="node-container">
+      <div className={nodeClassName}>
+        <div className="node-value">{node.value}</div>
       </div>
+      {(node.left || node.right) && (
+        <div className="children">
+          {node.left && (
+            <div className="node-branch">
+              <TreeNode node={node.left} />
+            </div>
+          )}
+          {node.right && (
+            <div className="node-branch">
+              <TreeNode node={node.right} />
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
+};
+
+TreeNode.propTypes = {
+    node: PropTypes.shape({
+        value: PropTypes.any.isRequired,
+        left: PropTypes.object,
+        right: PropTypes.object,
+    }),
+};
+
+
+const BinaryTreeDiv = ({ jsonTree }) => {
+  let treeData;
+  try {
+    // Safely parse the JSON string
+    treeData = typeof jsonTree === 'string' ? JSON.parse(jsonTree) : jsonTree;
+  } catch (error) {
+    console.error("Invalid JSON for tree:", error);
+    return <div className="tree-error">Invalid Tree Data</div>;
+  }
+
+  if (!treeData) {
+    return null;
+  }
+
+  const balanced = isBalanced(treeData);
+  const treeClassName = `binary-tree-container ${balanced ? 'balanced' : 'unbalanced'}`;
+
+  return (
+    <div className={treeClassName}>
+      <TreeNode node={treeData} />
+    </div>
+  );
+};
+
+BinaryTreeDiv.propTypes = {
+  jsonTree: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ]).isRequired,
 };
 
 export default BinaryTreeDiv;
