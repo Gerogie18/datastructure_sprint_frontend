@@ -9,6 +9,11 @@
   --color-text-dark: rgba(255, 255, 255, 0.87);
   --color-bg-light: #ffffff;
   --color-text-light: #242424;
+  --color-accent: #4CAF50;
+  --color-accent-dark: #45a049;
+  --color-error: #f44336;
+  --color-success: #4CAF50;
+  --color-warning: #ff9800;
   --primary-font: system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-family: var(--primary-font);
   line-height: 1.5;
