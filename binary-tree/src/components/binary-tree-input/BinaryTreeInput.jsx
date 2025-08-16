@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import BinaryTreeInputHook from './BinaryTreeInputHook.jsx';
+import PropTypes from 'prop-types';
 import './BinaryTreeInput.css';
 
-const BinaryTreeInput = ({ currentUser }) => {
+const BinaryTreeInput = ({ currentUser, onSubmit }) => {
   const [numbers, setNumbers] = useState(['']);
-  const { createBinaryTree, loading, error, success } = BinaryTreeInputHook();
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
 
   // Add a new empty input box
   const addNumberInput = () => {
@@ -32,11 +33,13 @@ const BinaryTreeInput = ({ currentUser }) => {
   };
 
   // Handle form submission
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    
+    setError(null);
+    setSuccess(null);
+
     if (!currentUser) {
-      alert('Please select or create a user first');
+      setError('Please select or create a user first');
       return;
     }
 
@@ -47,14 +50,13 @@ const BinaryTreeInput = ({ currentUser }) => {
       .filter(num => !isNaN(num));
 
     if (validNumbers.length === 0) {
-      alert('Please enter at least one valid number');
+      setError('Please enter at least one valid number');
       return;
     }
 
-    await createBinaryTree(validNumbers, currentUser.id);
-    
-    // Reset form on success
-    if (!error) {
+    if (onSubmit) {
+      onSubmit({ userId: currentUser.id, numbers: validNumbers });
+      setSuccess('Tree submitted successfully!');
       setNumbers(['']);
     }
   };
@@ -85,14 +87,12 @@ const BinaryTreeInput = ({ currentUser }) => {
                   onChange={(e) => updateNumber(index, e.target.value)}
                   onKeyPress={handleKeyPress}
                   placeholder={`Number ${index + 1}`}
-                  disabled={loading}
                 />
                 {numbers.length > 1 && (
                   <button
                     type="button"
                     onClick={() => removeNumber(index)}
                     className="remove-btn"
-                    disabled={loading}
                   >
                     ×
                   </button>
@@ -105,7 +105,6 @@ const BinaryTreeInput = ({ currentUser }) => {
             type="button"
             onClick={addNumberInput}
             className="add-number-btn"
-            disabled={loading}
           >
             + Add Another Number
           </button>
@@ -114,12 +113,11 @@ const BinaryTreeInput = ({ currentUser }) => {
         <div className="form-actions">
           <button
             type="submit"
-            disabled={loading || !currentUser}
+            disabled={!currentUser}
             className="create-tree-btn"
           >
-            {loading ? 'Creating Tree...' : 'Create Binary Tree'}
+            Create Binary Tree
           </button>
-          
           {!currentUser && (
             <p className="user-warning">Please select or create a user to continue</p>
           )}
@@ -131,6 +129,11 @@ const BinaryTreeInput = ({ currentUser }) => {
       </form>
     </div>
   );
+};
+
+BinaryTreeInput.propTypes = {
+  currentUser: PropTypes.object,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default BinaryTreeInput;
