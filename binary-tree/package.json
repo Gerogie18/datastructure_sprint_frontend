@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+  "dev": "vite",
+  "mock:server": "json-server --config json-server.config.json --watch db.json",
+  "dev:all": "npm-run-all --parallel mock:server dev",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
